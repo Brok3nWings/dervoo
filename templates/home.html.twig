@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+    
+
+    <div class="container bg-light my-5 p-3 rounded">
+        <h4 class="mt-5">Rechercher</h4>
+        {{ form_start(form) }}
+            <div class="mb-5">
+                <div class="d-inline-block">{{ form_row(form.keyword) }}</div>
+                <div class="d-inline-block">{{ form_row(form.city) }}</div>
+                <button type="submit" class="btn btn-primary mb-1"><i class="fas fa-magnifying-glass"></i>
+                    Lancer la recherche
+                </button>
+            </div>
+        {{ form_end(form) }}
+
+        {% if cakes != null %}
+            <h2 class="h1 text-center">Les recettes de mamie</h2>
+            <div class="row">
+                {% for cake in cakes %}
+                    <div class="col-lg-4">
+                        <div class="p-3">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ cake.name }}</h5>
+                                    <p class="card-text">{{ cake.recipe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr style="background-color:#f2f2f2;" class="w-50 mx-auto my-5">
+        {% endif %}
+        
+        {% if shops != null %}
+            <h2 class="h1 text-center">Les magasins partenaires</h2>
+            <div class="row">
+                {% for shop in shops %}
+                    <div class="col-lg-4">
+                        <div class="p-3">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-0">
+                                        {{ shop.name }} {{ shop.address }}
+                                    </h5>
+                                    <h6>
+                                        <small>{{ shop.city }}</small>
+                                    </h6>
+                                    <p class="card-text">
+                                        {% for gasoline in shop.gasolines %}
+                                            Gasoil - {{ gasoline.gasoil }} € / L<br>
+                                            GPL - {{ gasoline.gpl }} € / L<br>
+                                            Ethanol - {{ gasoline.ethanol }} € / L<br>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
